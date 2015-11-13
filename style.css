@@ -1,0 +1,131 @@
+#betBox {
+	color:black;
+}
+
+#gamebutton {
+	background-color:green;
+}
+
+body {
+	text-align:center;
+	background-color:black;
+	color:white;
+}
+
+#blackjackmain {
+	margin:auto;
+	padding-top:20px;
+	padding-bottom:5px;
+	width:60%;
+	text-align:center;
+	background-image:url("greenfelt.jpg");
+}
+
+#casinobanditmain {
+	margin:auto;
+	width:60%;
+	text-align:center;
+}
+
+#codelines {
+	margin:1px;
+}
+
+#codelinesbottom {
+	top-margin:1px;
+	padding-bottom:5px;
+}
+
+#fade-me {
+	display:none;
+}
+
+#grid {
+	width:310px;
+	height:310px;
+	background-color:green;
+	margin:auto;
+	text-align:center;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+#fourinarowgrid {
+	width:360px;
+	height:310px;
+	background-color:green;
+	margin:auto;
+	text-align:center;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+#headerbuttons a {
+	background-color:green;
+}
+
+#greenglyphicons {
+	color:green;
+	padding-right:10px;
+}
+
+#pagefooter {
+	background-color:black;
+	width:100%;
+	height:50px;
+	position:absolute;
+	bottom:0;
+	left:0;
+	color:green;
+}
+
+#squaregreen {
+	height:100px;
+	width:100Px;
+	background-color:green;
+	float:left;
+	padding-top:10px;
+}
+
+#squarewhite {
+	height:100px;
+	width:100px;
+	background-color:white;
+	float:left;
+	padding-top:10px;
+}
+
+#fiarsquaregreen {
+	height:50px;
+	width:50px;
+	background-color:green;
+	float:left;
+	padding-top:5px;
+	border: solid 1px black;
+}
+
+#fiarsquarewhite {
+	height:50px;
+	width:50px;
+	background-color:white;
+	float:left;
+	padding-top:5px;
+	border: solid 1px black;
+}
+
+#stopwatchhere {
+	font-size:80px;
+}
+
+#tabbuttons li{
+	padding:50px;
+	margin:10px;
+}
+#timehere {
+	text-align:right;
+}
+
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
