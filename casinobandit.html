@@ -1,58 +1,66 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-  <div id="wrapper">
-    <div class="container-fluid">
-	
-		<div id="headerandnavigationdiv">
-		</div>
-		<div id ="titleandcontactenvelope">
-		</div>
-		<div id="fade-me">
-			<div id="casinobanditmain">
-				<img id="reel1" src="ReelImages/Cherry.png" style="border:1px solid #FFF;padding:5px;">
-				<img id="reel2" src="ReelImages/Seven.png" style="border:1px solid #FFF;padding:5px;">
-				<img id="reel3" src="ReelImages/Bar.png" style="border:1px solid #FFF;padding:5px;">
-				<br>
-				<br>
-				Your Bet: <input type="text" id="betBox">
-				
-				<input type="button" id="gamebutton" class="btn btn-primary" 
-				value="Pull The Lever" onclick="pullTheLever()">
-				
-				<div id="betString">betString</div>
-					<br>
-				<div id="playerBank">playerBank</div>
-				<br>
-				<div id ="information" style="border:1px solid #FFF;padding:5px;">
-				  <p>- 1 Cherry Anywhere - you win x2 Your Bet</p>
-				  <p>- 2 Cherries Anywhere - you win x3 Your Bet</p>
-				  <p>- 3 Cherries - you win x4 Your Bet</p>
-				  <p>- 3 7's - JACKPOT! - you win x100 Your Bet</p>
-				  <p>- HOWEVER - IF THERE IS ONE "BAR" ANYWHERE - YOU WIN NOTHING!</p></div>
-				  <br>
-				  <input type="button" id="gamebutton" class="btn btn-primary" 
-				value="Reset" onclick="reset()">
-			</div>
-		</div>
-		<br>
-		
-	</div>
-	</div>
-  </div>
-  <div id="pagefooter">
-  </div>
- </body>
-  <script type="text/JavaScript" src="CasinoBandit.js"></script>
-  <script type="text/JavaScript" src="scripts.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!--Navigation bar at top-->
+    <div id="navigationbar">
+    </div>
+    <!--5 navigation buttons-->
+    <div id="navigationbuttons">
+    </div>
+    <!--Page Title-->
+    <div id="titlebox" class="col-lg-12">
+        <div class="col-lg-1"></div>
+        <div id="pagetitle" class="col-lg-10">
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+    <div id="fade-in">
+        <div class="col-lg-12">
+            <div class="col-lg-1"></div>
+            <!--Left column-->
+            <div class="col-lg-5">
+                <div id="casinobanditmain">
+                    <img id="reel1" src="ReelImages/Cherry.png" style="border:1px solid #FFF;padding:5px;">
+                    <img id="reel2" src="ReelImages/Seven.png" style="border:1px solid #FFF;padding:5px;">
+                    <img id="reel3" src="ReelImages/Bar.png" style="border:1px solid #FFF;padding:5px;">
+                    <br>
+                    <br>
+                    Your Bet: <input type="text" id="bet-box" class="inputbox">
+
+                    <input type="button" id="casino-bandit-lever" class="btn btn-primary" value="Pull The Lever">
+
+                    <div id="bet-string">betString</div>
+                    <br>
+                    <div id="player-bank">playerBank</div>
+                    <br>
+                    <br>
+                    <input type="button" id="casino-bandit-reset-button" class="btn btn-primary" value="Reset">
+                </div>
+            </div>
+            <!--Right column-->
+            <div class="col-lg-5">
+                <div id="casinobanditinformation">
+                    <p>- 1 Cherry Anywhere - you win x2 Your Bet</p>
+                    <p>- 2 Cherries Anywhere - you win x3 Your Bet</p>
+                    <p>- 3 Cherries - you win x4 Your Bet</p>
+                    <p>- 3 7's - JACKPOT! - you win x100 Your Bet</p>
+                    <p>- HOWEVER - IF THERE IS ONE "BAR" ANYWHERE - YOU WIN NOTHING!</p>
+                </div>
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+</body>
 </html>
+<script type="text/JavaScript" src="JavaScript/casinobandit.js"></script>
+<script type="text/JavaScript" src="JavaScript/scripts.js"></script>

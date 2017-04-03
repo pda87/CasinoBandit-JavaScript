@@ -1,167 +1,163 @@
-function checkCombinations(betAmount) {
-  
-  //ONE BAR - WIN NOTHING
-  if(currentImages[0] == "Bar" || currentImages[1] == "Bar" ||
-  currentImages[2] == "Bar")
-  {
-    oneBar();
-  }
-  
-  //THREE SEVEN - WIN 100XBET
-  else if(currentImages[0] == "Seven" && currentImages[1] == "Seven" &&
-  currentImages[2] == "Seven")
-  {
-	threeSevens();
-  }
-  
-  //THREE CHERRIES - WIN 4XBET
-  else if(currentImages[0] == "Cherry" && currentImages[1] == "Cherry" &&
-  currentImages[2] == "Cherry")
-  {
-	threeCherries();
-  }
-  
-  //TWO CHERRIES - WIN 3XBET
-  else if(currentImages[0] == "Cherry" && currentImages[1] == "Cherry"
-  || currentImages[0] == "Cherry" && currentImages[2] == "Cherry"
-  || currentImages[1] == "Cherry" && currentImages[2] == "Cherry")
-  {
-	twoCherries();
-  }
-  
-  //ONE CHERRY - WIN 2XBET
-  else if(currentImages[0] == "Cherry" || currentImages[1] == "Cherry" ||
-  currentImages[2] == "Cherry")
-  {
-	oneCherry();
-  }
-  
-  playerBankContent.innerHTML = "Player's Money: " + playerBank + ".00";
+var casinoBanditModule = (
+  function () {
+      return {
+          PageLoad: function () {
+              $("#casino-bandit-lever").on('click', function () {
+                  casinoBanditModule.PullTheLever();
+              });
 
-}
+              $("#casino-bandit-reset-button").on('click', function () {
+                  casinoBanditModule.Reset();
+              });
 
-function clearTextBox() {
-  var betInput = document.getElementById("betBox");
-  betInput.value = "";
-}
+              this.playerBank = 100;
+              this.betAmount = 0;
+              this.repeatRandomFruits = false;
+              this.repeatTime = 100;
 
-function displayRandomFruits() {
-	
-	if(!repeatRandomFruits)
-	{
-		return;
-	}
-	
-	generateRandomImages();
-	setTimeout(function(){displayRandomFruits()},repeatTime);
-	
-}
+              this.images = [
+                "Bar.png", "Bell.png", "Cherry.png", "Clover.png", "Diamond.png", "HorseShoe.png",
+                "Lemon.png", "Orange.png", "Plum.png", "Seven.png", "Strawberry.png", "Watermelon.png",
+              ];
 
-function generateRandomImage(reel) {
-  var randomNumber = Math.round(Math.random()*(11));
-  currentImages.push(images[randomNumber]);
-  var reel = document.getElementById(reel);
-  var imageString = "ReelImages/" + images[randomNumber] + ".png";
-  reel.src = imageString;
-}
+              casinoBanditModule.Reset();
+          },
+          CheckCombinations: function () {
+              //One bar - win nothing
+              if ($("#reel1").attr("src").toUpperCase().includes("BAR") || $("#reel2").attr("src").toUpperCase().includes("BAR") ||
+                $("#reel3").attr("src").toUpperCase().includes("BAR")) {
+                  casinoBanditModule.OneBar();
+              }
+              //Three Sevens - 100xbet
+              else if ($("#reel1").attr("src").toUpperCase().includes("SEVEN") && $("#reel2").attr("src").toUpperCase().includes("SEVEN") &&
+                $("#reel3").attr("src").toUpperCase().includes("SEVEN")) {
+                  casinoBanditModule.ThreeSevens();
+              }
+              //Three Cherries - win 4xbet
+              else if ($("#reel1").attr("src").toUpperCase().includes("CHERRY") && $("#reel2").attr("src").toUpperCase().includes("CHERRY") &&
+                $("#reel3").attr("src").toUpperCase().includes("CHERRY")) {
+                  casinoBanditModule.ThreeCherries();
+              }
+              //Two Cherries - win 3xbet
+              else if ($("#reel1").attr("src").toUpperCase().includes("CHERRY") && $("#reel2").attr("src").toUpperCase().includes("CHERRY") ||
+              $("#reel1").attr("src").toUpperCase().includes("CHERRY") && $("#reel3").attr("src").toUpperCase().includes("CHERRY") ||
+              $("#reel2").attr("src").toUpperCase().includes("CHERRY") && $("#reel3").attr("src").toUpperCase().includes("CHERRY")) {
+                  casinoBanditModule.TwoCherries();
+              }
+              //One Cherry - win 2xbet
+              else if ($("#reel1").attr("src").toUpperCase().includes("CHERRY") || $("#reel2").attr("src").toUpperCase().includes("CHERRY") ||
+                  $("#reel3").attr("src").toUpperCase().includes("CHERRY")) {
+                  casinoBanditModule.OneCherry();
+              }
 
-function generateRandomImages() {
-  
-  currentImages = [];
-  
-  generateRandomImage("reel1");
-  generateRandomImage("reel2");
-  generateRandomImage("reel3");  
-}
+              $("#player-bank").html("Player's Money: " + this.playerBank + ".00");
+          },
+          ClearTextBox: function () {
+              $("#bet-box").val("")
+          },
+          DisplayRandomFruits: function () {
 
-function oneBar() {
-	betStringContent.innerHTML = "You bet: " + betAmount + ".00 and won nothing!";
-}
+              if (!this.repeatRandomFruits) {
+                  return;
+              }
 
-function oneCherry() {
-	betStringContent.innerHTML = "You bet: " + betAmount + ".00"
-	+ " and won " + (2*betAmount) + ".00!";
-	playerBank += 2*betAmount;
-}
+              casinoBanditModule.GenerateRandomImages();
+              setTimeout(function () {
+                  casinoBanditModule.DisplayRandomFruits()
+              }, this.repeatTime);
+          },
+          GenerateRandomImage: function (reel) {
+              var imageString = "ReelImages/" + this.images[Math.round(Math.random() * (11))];
+              $(reel).attr("src", imageString)
+          },
+          GenerateRandomImages: function () {
 
-function pullTheLever() {
-  
-  repeatRandomFruits = false;
-  
-  if(playerBank <= 0)
-  {
-    alert("Bankrupt! :(");
-	clearTextBox();
-  	return;
-  }
-  
-  var betString = document.getElementById("betBox").value;
-  
-  betAmount = parseInt(betString);
-  
-   if(!isNaN(betAmount))
-   {    
-		if(betAmount > playerBank || betAmount <= 0)
-		{
-		  alert("Invalid input!");
-		  clearTextBox();
-		  return;
-		}
-		
-		playerBank -= betAmount;
-		betStringContent.innerHTML = "You bet: " + betAmount + ".00";
-		playerBankContent.innerHTML = "Player's Money: " + playerBank + ".00";
-		generateRandomImages();
+              casinoBanditModule.GenerateRandomImage("#reel1");
+              casinoBanditModule.GenerateRandomImage("#reel2");
+              casinoBanditModule.GenerateRandomImage("#reel3");
+          },
+          OneBar: function () {
+              $("#bet-string").html("You bet: " + this.betAmount + ".00 and won nothing!");
+          },
+          OneCherry: function () {
+              $("#bet-string").html("You bet: " + this.betAmount + ".00" + " and won " + (2 * this.betAmount) + ".00!");
+              this.playerBank += 2 * this.betAmount;
+          },
+          PullTheLever: function () {
+              if (this.playerBank <= 0) {
+                  alert("Bankrupt! :(");
+                  casinoBanditModule.ClearTextBox();
+                  return;
+              }
 
-		checkCombinations(betAmount);	
-    }
-}
+              $("#casino-bandit-lever").hide();
 
-function reset() {
-	repeatRandomFruits = true;
-	repeatTime = 100;
-	playerBankContent  = document.getElementById("playerBank");
-	playerBank = 100;
-	playerBankContent.innerHTML = "Player's Money: " + playerBank + ".00";
-	betStringContent  = document.getElementById("betString");
-	betStringContent.innerHTML = "<br>";
-	
-	images = [
-	"Bar", "Bell", "Cherry", "Clover", "Diamond", "HorseShoe",
-	"Lemon", "Orange", "Plum", "Seven", "Strawberry", "Watermelon",
-	];
-	
-	currentImages = [];
-	displayRandomFruits();
+              var betString = $("#bet-box").val();
 
-}
+              this.betAmount = parseInt(betString);
 
-function threeCherries() {
-	betStringContent.innerHTML = "You bet: " + betAmount + ".00"
-	+ " and won " + (4*betAmount) + ".00!";
-	playerBank += 4*betAmount;
-}
+              if (this.betAmount === "" || isNaN(this.betAmount)) {
+                  $("#bet-string").html("Not a valid input...");
+                  $("#casino-bandit-lever").show();
+                  return;
+              }
 
-function threeSevens() {
-	betStringContent.innerHTML = "You bet: " + betAmount + ".00"
-	+ " and won " + (100*betAmount) + ".00 - JACKPOT!!";
-	playerBank += 100*betAmount;
-	alert("JACKPOT!");
-}
+              if (this.betAmount > this.playerBank) {
+                  $("#bet-string").html("Amount must be less than you have...");
+                  $("#casino-bandit-lever").show();
+                  return;
+              }
 
-function twoCherries() {
-	betStringContent.innerHTML = "You bet: " + betAmount + ".00"
-	+ " and won " + (3*betAmount) + ".00!";
-	playerBank += 3*betAmount;
-}
+              casinoBanditModule.repeatRandomFruits = false;
 
-var betAmount;
-var repeatRandomFruits;
-var repeatTime;
-var playerBankContent;
-var playerBank;
-var betStringContent;
-var images;
-var currentImages;
+              $("#bet-string").html("Spinning reels...");
 
-reset();
+              if (this.playerBank <= 0) {
+                  alert("Bankrupt! :(");
+                  casinoBanditModule.ClearTextBox();
+                  return;
+              }
+
+              this.displayRandomFruits = false;
+
+              if (!isNaN(this.betAmount)) {
+
+                  casinoBanditModule.playerBank -= casinoBanditModule.betAmount;
+                  $("#bet-string").html("You bet: " + casinoBanditModule.betAmount + ".00");
+                  $("#player-bank").html("Player's Money: " + casinoBanditModule.playerBank + ".00");
+                  casinoBanditModule.GenerateRandomImages();
+
+                  casinoBanditModule.CheckCombinations();
+                  $("#casino-bandit-lever").show();
+                  $("#player-bank").html("Player's Money: " + casinoBanditModule.playerBank + ".00");
+              }
+          },
+          Reset: function () {
+              this.repeatRandomFruits = true;
+              this.repeatTime = 100;
+              this.playerBank = 100;
+              this.betAmount = 0;
+              $("#player-bank").html("Player's Money: " + this.playerBank + ".00");
+              $("#bet-string").html("<br>");
+              casinoBanditModule.ClearTextBox();
+              casinoBanditModule.DisplayRandomFruits();
+          },
+          ThreeCherries: function () {
+              $("#bet-string").html("You bet: " + this.betAmount + ".00" +
+                " and won " + (4 * this.betAmount) + ".00!");
+              this.playerBank += 4 * this.betAmount;
+          },
+          ThreeSevens: function () {
+              $("#bet-string").html("You bet: " + betAmount + ".00" +
+                " and won " + (100 * betAmount) + ".00 - JACKPOT!!");
+              this.playerBank += 100 * this.betAmount;
+          },
+          TwoCherries: function () {
+              $("#bet-string").html("You bet: " + this.betAmount + ".00" +
+                " and won " + (3 * this.betAmount) + ".00!");
+              this.playerBank += 3 * this.betAmount;
+          },
+      }
+  })();
+
+casinoBanditModule.PageLoad();
